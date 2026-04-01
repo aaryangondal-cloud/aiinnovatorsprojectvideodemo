@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "GemCopy - AI Product Descriptions for Jewelers",
+  title: "GemCopy by Amipi - AI Product Descriptions for Jewelers",
   description:
-    "Turn GIA certificate data into compelling, SEO-optimized product descriptions that convert browsers into buyers.",
+    "Turn GIA certificate data into compelling, SEO-optimized product descriptions that convert browsers into buyers. Powered by Claude AI.",
 };
 
 export default function RootLayout({
