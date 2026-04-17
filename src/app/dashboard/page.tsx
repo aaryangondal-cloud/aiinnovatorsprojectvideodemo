@@ -141,7 +141,7 @@ export default function DashboardPage() {
               </svg>
             </div>
             <div>
-              <span className="text-white font-black text-base">GemCopy</span>
+              <span className="text-white font-black text-base">GemCopy by Amipi</span>
               <span className="text-gray-400 text-xs ml-2">by Amipi</span>
             </div>
           </div>
