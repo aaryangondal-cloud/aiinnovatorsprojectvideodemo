@@ -9,8 +9,8 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Lato", "system-ui", "sans-serif"],
-        display: ["Lato", "system-ui", "sans-serif"],
+        sans: ["var(--font-lato)", "system-ui", "sans-serif"],
+        display: ["var(--font-lato)", "system-ui", "sans-serif"],
       },
       colors: {
         navy: {

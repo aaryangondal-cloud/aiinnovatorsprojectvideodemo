@@ -1,5 +1,15 @@
 import type { Metadata } from "next";
+import { Lato } from "next/font/google";
 import "./globals.css";
+import PageTransition from "@/components/PageTransition";
+
+const lato = Lato({
+  subsets: ["latin"],
+  weight: ["300", "400", "700", "900"],
+  style: ["normal", "italic"],
+  display: "swap",
+  variable: "--font-lato",
+});
 
 const SITE_URL = "https://aiinnovatorsprojectvideodemo.vercel.app";
 
@@ -162,7 +172,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={lato.variable}>
       <head>
         <script
           type="application/ld+json"
@@ -177,7 +187,9 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqPageSchema) }}
         />
       </head>
-      <body>{children}</body>
+      <body className="font-sans">
+        <PageTransition>{children}</PageTransition>
+      </body>
     </html>
   );
 }
