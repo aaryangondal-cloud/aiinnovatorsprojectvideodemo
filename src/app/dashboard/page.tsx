@@ -6,6 +6,7 @@ import { getCurrentUser, signOut, type User } from "@/lib/auth";
 import { saveDescription, getDescriptions, deleteDescription, type SavedDescription } from "@/lib/storage";
 import GeneratorForm from "@/components/GeneratorForm";
 import OutputPanel from "@/components/OutputPanel";
+import OnboardingTour from "@/components/OnboardingTour";
 import { type FormData } from "@/app/page";
 
 const defaultForm: FormData = {
@@ -21,6 +22,7 @@ const defaultForm: FormData = {
   price: "",
   tone: "amipi",
   additionalNotes: "",
+  language: "English",
 };
 
 const sampleForm: FormData = {
@@ -36,6 +38,7 @@ const sampleForm: FormData = {
   price: "12500",
   tone: "luxury",
   additionalNotes: "Engagement Ring",
+  language: "English",
 };
 
 function extractHeadline(output: string): string {
@@ -67,21 +70,21 @@ export default function DashboardPage() {
     if (user) setDescriptions(getDescriptions(user.email));
   }, [user]);
 
-  const handleGenerate = async () => {
+  const generate = async (modifier?: string) => {
     if (!form.stoneType || !form.caratWeight || !form.metalType) {
       setError("Please fill in stone type, carat weight, and metal type.");
       return;
     }
     setError("");
     setLoading(true);
-    setOutput("");
+    if (!modifier) setOutput("");
     setSaved(false);
 
     try {
       const res = await fetch("/api/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, modifier }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Generation failed.");
@@ -92,6 +95,9 @@ export default function DashboardPage() {
       setLoading(false);
     }
   };
+
+  const handleGenerate = () => generate();
+  const handleRegenerate = (modifier: string) => generate(modifier);
 
   const handleCopy = () => {
     if (!output) return;
@@ -131,6 +137,7 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
+      <OnboardingTour />
       {/* Nav */}
       <header className="bg-navy-800 border-b border-navy-700 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 py-3.5 flex items-center justify-between">
@@ -205,6 +212,7 @@ export default function DashboardPage() {
                   output={output}
                   loading={loading}
                   onCopy={handleCopy}
+                  onRegenerate={handleRegenerate}
                   copied={copied}
                 />
                 {output && !loading && (

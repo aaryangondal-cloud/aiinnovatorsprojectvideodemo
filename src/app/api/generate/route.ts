@@ -1,7 +1,22 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { NextRequest, NextResponse } from "next/server";
+import { buildGeneratePrompt, Tone } from "@/lib/prompts";
+import { checkLimit, ipFromRequest } from "@/lib/rate-limit";
 
 const client = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
+
+const REQUIRED_SECTIONS = [
+  "**HEADLINE**",
+  "**PRODUCT DESCRIPTION**",
+  "**KEY FEATURES**",
+  "**SEO TAGS**",
+  "**PRODUCT SCHEMA**",
+  "**FAQ**",
+];
+
+function hasAllSections(text: string) {
+  return REQUIRED_SECTIONS.every((s) => text.includes(s));
+}
 
 export async function POST(req: NextRequest) {
   try {
@@ -9,16 +24,11 @@ export async function POST(req: NextRequest) {
     const {
       stoneType,
       caratWeight,
-      cut,
-      color,
-      clarity,
       metalType,
-      metalKarat,
-      settingStyle,
-      certificateNumber,
-      price,
-      tone,
-      additionalNotes,
+      tone = "amipi",
+      language = "English",
+      modifier,
+      tier = "free", // "free" | "pro"
     } = body;
 
     if (!stoneType || !caratWeight || !metalType) {
@@ -28,54 +38,63 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const toneGuide: Record<string, string> = {
-      amipi:
-        "Write exactly like Amipi's Instagram: warm, wearability-first, conversational. Lead with how the piece feels to wear - 'clean', 'effortless', 'easy to wear', 'hits different'. One or two punchy sentences then the specs. Friendly and confident, never stuffy. No over-hyped luxury language. Think: 'Your Favorite Diamond Guys' energy - approachable, honest, direct.",
-      luxury:
-        "Use elevated, aspirational language. Evoke exclusivity, craftsmanship, and timeless elegance. Words like 'rare', 'artisanal', 'heirloom-quality'. Speak to emotion and legacy.",
-      professional:
-        "Use precise, professional B2B language. Be accurate and direct. Focus on grading credentials, certification authority, and investment value. Speak to trade buyers and serious retail customers.",
-      minimalist:
-        "Use clean, direct language. No fluff, no over-selling. Let the specs speak for themselves. Short, confident sentences. Emphasize accuracy and quality.",
-    };
+    // Per-IP rate limit: 20/min free, 200/min pro. Authenticated limiting is
+    // applied on top when Supabase session is wired in Phase D.
+    const ip = ipFromRequest(req);
+    const limit = tier === "pro" ? 200 : 20;
+    const rl = await checkLimit("generate", ip, limit, "1m");
+    if (!rl.success) {
+      return NextResponse.json(
+        { error: "Rate limit exceeded. Try again in a minute.", resetAt: rl.resetAt },
+        { status: 429 }
+      );
+    }
 
-    const prompt = `You are an expert jewelry copywriter specializing in diamond and fine jewelry product listings. Your copy is accurate, professional, and honest - never over-hyped or misleading. Every spec you mention must match the certificate data exactly. Your job is to turn raw certificate data into compelling, SEO-optimized product descriptions that convert online shoppers into buyers.
+    const prompt = buildGeneratePrompt({
+      stoneType,
+      caratWeight,
+      cut: body.cut,
+      color: body.color,
+      clarity: body.clarity,
+      metalType,
+      metalKarat: body.metalKarat,
+      settingStyle: body.settingStyle,
+      certificateNumber: body.certificateNumber,
+      price: body.price,
+      additionalNotes: body.additionalNotes,
+      tone: tone as Tone,
+      language,
+      modifier,
+    });
 
-TONE: ${toneGuide[tone] || toneGuide.luxury}
+    const modelId = tier === "pro" ? "gemini-2.0-flash" : "gemini-2.0-flash";
+    // Note: switch to gemini-2.5-pro for paid tier when that model is available
+    // via the @google/generative-ai SDK in this deployment.
 
-GIA CERTIFICATE DATA:
-- Stone: ${stoneType}
-- Carat Weight: ${caratWeight}ct
-- Cut: ${cut || "Not specified"}
-- Color Grade: ${color || "Not specified"}
-- Clarity Grade: ${clarity || "Not specified"}
-- Metal: ${metalType}${metalKarat ? ` ${metalKarat}k` : ""}
-- Setting Style: ${settingStyle || "Not specified"}
-- GIA Certificate #: ${certificateNumber || "Not specified"}
-- Price: ${price ? `$${price}` : "Not specified"}
-${additionalNotes ? `- Additional Details: ${additionalNotes}` : ""}
+    const model = client.getGenerativeModel({
+      model: modelId,
+      generationConfig: {
+        temperature: 0.3,
+        maxOutputTokens: 2048,
+      },
+    });
 
-Write a product description with these exact sections:
+    let text = (await model.generateContent(prompt)).response.text();
 
-**HEADLINE** (8-12 words, emotionally resonant, includes key specs)
-
-**PRODUCT DESCRIPTION** (120-160 words, 2 paragraphs - first focuses on beauty and emotion, second covers the stone's credentials and why it matters)
-
-**KEY FEATURES** (5 bullet points, each starting with a strong noun or adjective, mix emotional and technical)
-
-**SEO TAGS** (8-10 comma-separated keywords a buyer would actually search for)
-
-Format your response exactly as shown above with the bold section headers. Do not add any preamble or closing remarks.`;
-
-    const model = client.getGenerativeModel({ model: "gemini-2.0-flash" });
-    const result = await model.generateContent(prompt);
-    const text = result.response.text();
+    // Retry once if the response is missing required sections.
+    if (!hasAllSections(text)) {
+      const retry = await model.generateContent(
+        prompt +
+          "\n\nIMPORTANT: Your previous response was missing required sections. Return ALL six sections with the exact bold headers shown, in order: HEADLINE, PRODUCT DESCRIPTION, KEY FEATURES, SEO TAGS, PRODUCT SCHEMA, FAQ."
+      );
+      text = retry.response.text();
+    }
 
     return NextResponse.json({ description: text });
   } catch (err) {
     console.error("Generation error:", err);
     return NextResponse.json(
-      { error: "Failed to generate description. Check your API key." },
+      { error: "Failed to generate description. Please try again." },
       { status: 500 }
     );
   }

@@ -1,10 +1,11 @@
 "use client";
 
-import { FormData } from "@/app/page";
+import { useRef, useState } from "react";
+import type { FormData as GemCopyForm } from "@/app/page";
 
 interface Props {
-  form: FormData;
-  setForm: React.Dispatch<React.SetStateAction<FormData>>;
+  form: GemCopyForm;
+  setForm: React.Dispatch<React.SetStateAction<GemCopyForm>>;
   onGenerate: () => void;
   onReset: () => void;
   onLoadSample: () => void;
@@ -17,7 +18,20 @@ const inputClass =
 
 const labelClass = "block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1.5";
 
-const sectionHeadingClass = "text-xs font-black text-navy-600 uppercase tracking-widest mb-3 flex items-center gap-2";
+const sectionHeadingClass =
+  "text-xs font-black text-navy-600 uppercase tracking-widest mb-3 flex items-center gap-2";
+
+// Smart default: map metal type to common karat. Platinum has no karat (marked 950).
+const KARAT_DEFAULT: Record<string, string> = {
+  Platinum: "",
+  "White Gold": "18",
+  "Yellow Gold": "18",
+  "Rose Gold": "18",
+  "Sterling Silver": "",
+  Palladium: "",
+};
+
+const LANGUAGES = ["English", "Spanish", "French", "Hindi", "Hebrew"] as const;
 
 export default function GeneratorForm({
   form,
@@ -28,10 +42,60 @@ export default function GeneratorForm({
   loading,
   error,
 }: Props) {
+  const [showMore, setShowMore] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [uploadMessage, setUploadMessage] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
   const set =
-    (key: keyof FormData) =>
-    (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) =>
-      setForm((f) => ({ ...f, [key]: e.target.value }));
+    (key: keyof GemCopyForm) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+      const value = e.target.value;
+      setForm((f) => {
+        const next = { ...f, [key]: value };
+        // Smart default: auto-fill karat when metal type changes.
+        if (key === "metalType" && !f.metalKarat && KARAT_DEFAULT[value] !== undefined) {
+          next.metalKarat = KARAT_DEFAULT[value]!;
+        }
+        // Smart default: auto-fill cut to Excellent for natural diamonds.
+        if (key === "stoneType" && !f.cut && (value === "Natural Diamond" || value === "Lab-Grown Diamond")) {
+          next.cut = "Excellent";
+        }
+        return next;
+      });
+    };
+
+  async function handleUpload(file: File) {
+    setUploading(true);
+    setUploadMessage(null);
+    try {
+      const body = new FormData();
+      body.append("file", file);
+      const res = await fetch("/api/extract-certificate", { method: "POST", body });
+      const data = await res.json();
+      if (!res.ok) {
+        setUploadMessage(data.error || "Extraction failed.");
+        return;
+      }
+      const extracted = data.extracted as Record<string, string>;
+      let filledCount = 0;
+      setForm((f) => {
+        const next = { ...f };
+        for (const [key, value] of Object.entries(extracted)) {
+          if (value && key in next) {
+            (next as Record<string, string>)[key] = value;
+            filledCount += 1;
+          }
+        }
+        return next;
+      });
+      setUploadMessage(`Pre-filled ${filledCount} fields from your certificate.`);
+    } catch {
+      setUploadMessage("Upload failed. Please try again.");
+    } finally {
+      setUploading(false);
+    }
+  }
 
   return (
     <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
@@ -54,11 +118,56 @@ export default function GeneratorForm({
       </div>
 
       <div className="p-6 space-y-6">
-        {/* Stone Details */}
+        {/* PDF / image upload */}
+        <div>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="application/pdf,image/*"
+            className="hidden"
+            onChange={(e) => e.target.files?.[0] && handleUpload(e.target.files[0])}
+          />
+          <button
+            type="button"
+            onClick={() => fileInputRef.current?.click()}
+            disabled={uploading || loading}
+            className="w-full border-2 border-dashed border-gray-200 hover:border-gold-400 hover:bg-cream-50 rounded-xl px-4 py-4 text-left transition-all disabled:opacity-50 group"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-lg bg-navy-50 group-hover:bg-gold-100 flex items-center justify-center transition-colors">
+                {uploading ? (
+                  <svg className="w-4 h-4 animate-spin text-gold-600" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                  </svg>
+                ) : (
+                  <svg className="w-5 h-5 text-gold-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                  </svg>
+                )}
+              </div>
+              <div className="flex-1">
+                <p className="text-sm font-bold text-navy-700">
+                  {uploading ? "Reading your certificate..." : "Upload a GIA, HRD, or AGS certificate"}
+                </p>
+                <p className="text-xs text-gray-500 mt-0.5">
+                  PDF or image. We'll extract the specs automatically.
+                </p>
+              </div>
+            </div>
+          </button>
+          {uploadMessage && (
+            <p className="text-xs text-gold-700 mt-2 bg-gold-50 border border-gold-100 rounded-lg px-3 py-2">
+              {uploadMessage}
+            </p>
+          )}
+        </div>
+
+        {/* Required fields */}
         <div>
           <p className={sectionHeadingClass}>
             <span className="w-5 h-5 rounded bg-navy-100 text-navy-600 flex items-center justify-center text-xs font-black">1</span>
-            Stone
+            Required
           </p>
           <div className="grid grid-cols-2 gap-3">
             <div className="col-span-2 sm:col-span-1">
@@ -90,55 +199,6 @@ export default function GeneratorForm({
               />
             </div>
             <div>
-              <label className={labelClass}>Cut Grade</label>
-              <select className={inputClass} value={form.cut} onChange={set("cut")}>
-                <option value="">Select cut</option>
-                <option>Ideal</option>
-                <option>Excellent</option>
-                <option>Very Good</option>
-                <option>Good</option>
-                <option>Fair</option>
-              </select>
-            </div>
-            <div>
-              <label className={labelClass}>Color Grade</label>
-              <select className={inputClass} value={form.color} onChange={set("color")}>
-                <option value="">Select color</option>
-                {["D", "E", "F", "G", "H", "I", "J", "K", "L", "M"].map((g) => (
-                  <option key={g}>{g}</option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label className={labelClass}>Clarity Grade</label>
-              <select className={inputClass} value={form.clarity} onChange={set("clarity")}>
-                <option value="">Select clarity</option>
-                {["FL", "IF", "VVS1", "VVS2", "VS1", "VS2", "SI1", "SI2", "I1", "I2"].map((g) => (
-                  <option key={g}>{g}</option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label className={labelClass}>Certificate #</label>
-              <input
-                type="text"
-                placeholder="e.g. 2141438167"
-                className={inputClass}
-                value={form.certificateNumber}
-                onChange={set("certificateNumber")}
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Metal and Setting */}
-        <div>
-          <p className={sectionHeadingClass}>
-            <span className="w-5 h-5 rounded bg-navy-100 text-navy-600 flex items-center justify-center text-xs font-black">2</span>
-            Metal and Setting
-          </p>
-          <div className="grid grid-cols-2 gap-3">
-            <div>
               <label className={labelClass}>Metal Type *</label>
               <select className={inputClass} value={form.metalType} onChange={set("metalType")}>
                 <option value="">Select metal</option>
@@ -149,70 +209,6 @@ export default function GeneratorForm({
                 <option>Sterling Silver</option>
                 <option>Palladium</option>
               </select>
-            </div>
-            <div>
-              <label className={labelClass}>Karat</label>
-              <select className={inputClass} value={form.metalKarat} onChange={set("metalKarat")}>
-                <option value="">Select karat</option>
-                <option value="14">14k</option>
-                <option value="18">18k</option>
-                <option value="22">22k</option>
-                <option value="24">24k</option>
-              </select>
-            </div>
-            <div>
-              <label className={labelClass}>Setting Style</label>
-              <select className={inputClass} value={form.settingStyle} onChange={set("settingStyle")}>
-                <option value="">Select setting</option>
-                <option>Solitaire</option>
-                <option>Halo</option>
-                <option>Pave</option>
-                <option>Three-Stone</option>
-                <option>Bezel</option>
-                <option>Cathedral</option>
-                <option>Tension</option>
-                <option>Cluster</option>
-                <option>Vintage</option>
-              </select>
-            </div>
-            <div>
-              <label className={labelClass}>Jewelry Type</label>
-              <select className={inputClass} value={form.additionalNotes} onChange={set("additionalNotes")}>
-                <option value="">Select type</option>
-                <option value="Engagement Ring">Engagement Ring</option>
-                <option value="Anniversary Band">Anniversary Band</option>
-                <option value="Stud Earrings">Stud Earrings</option>
-                <option value="Hoop Earrings">Hoop Earrings</option>
-                <option value="Tennis Bracelet">Tennis Bracelet</option>
-                <option value="Bangle">Bangle</option>
-                <option value="Pendant Necklace">Pendant Necklace</option>
-                <option value="Solitaire Necklace">Solitaire Necklace</option>
-                <option value="Cocktail Ring">Cocktail Ring</option>
-                <option value="Loose Diamond">Loose Diamond</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        {/* Pricing and Tone */}
-        <div>
-          <p className={sectionHeadingClass}>
-            <span className="w-5 h-5 rounded bg-navy-100 text-navy-600 flex items-center justify-center text-xs font-black">3</span>
-            Pricing and Tone
-          </p>
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label className={labelClass}>Price (USD)</label>
-              <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm font-medium">$</span>
-                <input
-                  type="number"
-                  placeholder="4500"
-                  className={`${inputClass} pl-7`}
-                  value={form.price}
-                  onChange={set("price")}
-                />
-              </div>
             </div>
             <div>
               <label className={labelClass}>Copy Tone</label>
@@ -226,22 +222,138 @@ export default function GeneratorForm({
           </div>
         </div>
 
-        {/* Additional Notes */}
+        {/* Collapsible More Details */}
         <div>
-          <label className={labelClass}>Additional Details</label>
-          <textarea
-            rows={2}
-            placeholder="e.g. Ethically sourced, conflict-free, handcrafted, bridal collection..."
-            className={`${inputClass} resize-none`}
-            value={form.additionalNotes}
-            onChange={set("additionalNotes")}
-          />
+          <button
+            type="button"
+            onClick={() => setShowMore((v) => !v)}
+            className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-navy-600 hover:text-gold-600 transition-colors"
+          >
+            <svg
+              className={`w-4 h-4 transition-transform ${showMore ? "rotate-90" : ""}`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+            {showMore ? "Hide" : "Add"} more details
+          </button>
+
+          {showMore && (
+            <div className="mt-4 space-y-4">
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className={labelClass}>Cut Grade</label>
+                  <select className={inputClass} value={form.cut} onChange={set("cut")}>
+                    <option value="">Select cut</option>
+                    <option>Ideal</option>
+                    <option>Excellent</option>
+                    <option>Very Good</option>
+                    <option>Good</option>
+                    <option>Fair</option>
+                  </select>
+                </div>
+                <div>
+                  <label className={labelClass}>Color Grade</label>
+                  <select className={inputClass} value={form.color} onChange={set("color")}>
+                    <option value="">Select color</option>
+                    {["D", "E", "F", "G", "H", "I", "J", "K", "L", "M"].map((g) => (
+                      <option key={g}>{g}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className={labelClass}>Clarity Grade</label>
+                  <select className={inputClass} value={form.clarity} onChange={set("clarity")}>
+                    <option value="">Select clarity</option>
+                    {["FL", "IF", "VVS1", "VVS2", "VS1", "VS2", "SI1", "SI2", "I1", "I2"].map((g) => (
+                      <option key={g}>{g}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className={labelClass}>Certificate #</label>
+                  <input
+                    type="text"
+                    placeholder="e.g. 2141438167"
+                    className={inputClass}
+                    value={form.certificateNumber}
+                    onChange={set("certificateNumber")}
+                  />
+                </div>
+                <div>
+                  <label className={labelClass}>Karat</label>
+                  <select className={inputClass} value={form.metalKarat} onChange={set("metalKarat")}>
+                    <option value="">Select karat</option>
+                    <option value="14">14k</option>
+                    <option value="18">18k</option>
+                    <option value="22">22k</option>
+                    <option value="24">24k</option>
+                  </select>
+                </div>
+                <div>
+                  <label className={labelClass}>Setting Style</label>
+                  <select className={inputClass} value={form.settingStyle} onChange={set("settingStyle")}>
+                    <option value="">Select setting</option>
+                    <option>Solitaire</option>
+                    <option>Halo</option>
+                    <option>Pave</option>
+                    <option>Three-Stone</option>
+                    <option>Bezel</option>
+                    <option>Cathedral</option>
+                    <option>Tension</option>
+                    <option>Cluster</option>
+                    <option>Vintage</option>
+                  </select>
+                </div>
+                <div>
+                  <label className={labelClass}>Price (USD)</label>
+                  <div className="relative">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm font-medium">
+                      $
+                    </span>
+                    <input
+                      type="number"
+                      placeholder="4500"
+                      className={`${inputClass} pl-7`}
+                      value={form.price}
+                      onChange={set("price")}
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label className={labelClass}>Language</label>
+                  <select className={inputClass} value={form.language || "English"} onChange={set("language")}>
+                    {LANGUAGES.map((l) => (
+                      <option key={l}>{l}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+              <div>
+                <label className={labelClass}>Additional Details</label>
+                <textarea
+                  rows={2}
+                  placeholder="e.g. Ethically sourced, conflict-free, handcrafted, bridal collection..."
+                  className={`${inputClass} resize-none`}
+                  value={form.additionalNotes}
+                  onChange={set("additionalNotes")}
+                />
+              </div>
+            </div>
+          )}
         </div>
 
         {error && (
           <div className="flex items-start gap-2 text-sm text-red-600 bg-red-50 border border-red-100 rounded-xl px-4 py-3">
             <svg className="w-4 h-4 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
             </svg>
             {error}
           </div>

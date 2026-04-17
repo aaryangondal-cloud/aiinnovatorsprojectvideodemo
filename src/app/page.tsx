@@ -5,6 +5,8 @@ import TestimonialsSection from "@/components/TestimonialsSection";
 import FaqSection from "@/components/FaqSection";
 import ProductGallery from "@/components/ProductGallery";
 import Footer from "@/components/Footer";
+import TryDemoSection from "@/components/TryDemoSection";
+import ROICalculator from "@/components/ROICalculator";
 import { motion } from "framer-motion";
 import Sparkles from "@/components/ui/sparkles";
 
@@ -21,6 +23,7 @@ export interface FormData {
   price: string;
   tone: string;
   additionalNotes: string;
+  language: string;
 }
 
 const stats = [
@@ -78,6 +81,9 @@ export default function Home() {
       {/* Product Gallery - real Amipi pieces with GemCopy-generated copy */}
       <ProductGallery />
 
+      {/* Try-before-signup demo */}
+      <TryDemoSection />
+
       {/* Stats Strip */}
       <section className="bg-navy-600 py-6">
         <div className="max-w-7xl mx-auto px-6">
@@ -125,6 +131,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ROI calculator - concrete value proof */}
+      <ROICalculator />
 
       {/* Testimonials - infinite scroll columns */}
       <TestimonialsSection />

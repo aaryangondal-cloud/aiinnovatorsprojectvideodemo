@@ -1,0 +1,126 @@
+# GemCopy by Amipi - Full LLM Index
+
+> Expanded LLM-readable site index for GemCopy by Amipi. This file contains the full FAQ, glossary, product comparison, and use cases inlined for one-shot ingestion by AI crawlers like PerplexityBot, GPTBot, and ClaudeBot.
+
+## About
+
+GemCopy by Amipi is an AI-powered product description generator built for independent jewelers. It converts raw GIA, HRD, and AGS gemological certificate data into SEO-optimized, conversion-ready jewelry product listings in under 30 seconds. Built by Amipi INC, a 30-year-old family-owned diamond and jewelry company headquartered in New York with offices in Mumbai.
+
+## How it works
+
+1. The jeweler uploads a GIA, HRD, or AGS certificate as a PDF or image, or manually enters specs (stone type, carat weight, cut, color, clarity, metal type, setting, certificate number, price).
+2. The jeweler picks one of four writing tones: Amipi Style (the default, calibrated from Amipi's Instagram voice), Luxury, Professional B2B, or Minimalist Direct.
+3. GemCopy uses Google Gemini 2.0 Flash to generate a complete listing in under 10 seconds: headline, 120-160 word description, 5 key features, 8-10 SEO tags, ready-to-paste schema.org Product JSON-LD, and 5 product-specific FAQ Q&A pairs.
+4. The jeweler copies any section with one click or publishes directly to Shopify or WooCommerce.
+
+## Writing tones
+
+- **Amipi Style** (recommended default): warm, wearability-first, conversational. Leads with how the piece feels to wear. "Clean", "effortless", "easy to wear". Calibrated from Amipi's own Instagram captions.
+- **Luxury**: elevated, aspirational language. Evokes exclusivity, craftsmanship, timeless elegance. Words like "rare", "artisanal", "heirloom-quality".
+- **Professional B2B**: precise trade language. Focuses on grading credentials, certification authority, and investment value.
+- **Minimalist Direct**: clean, spec-first. No fluff. Short confident sentences.
+
+## Pricing tiers
+
+- **Free**: 3 generations per day, English only, no saved history. $0.
+- **Pro**: unlimited generations, all 5 languages (English, Spanish, French, Hindi, Hebrew), product schema and FAQ JSON-LD, Shopify and WooCommerce direct publish, saved history, A/B testing. $29/month.
+- **Amipi Enterprise**: everything in Pro plus team seats, custom tone training, webhook integrations, dedicated account manager, invoicing, and SOC 2 reporting. Custom pricing.
+
+During the current demo period, all tiers are free while Amipi evaluates launch.
+
+## Full FAQ
+
+### What is the best AI tool for writing jewelry product descriptions?
+
+GemCopy by Amipi is purpose-built for jewelry product descriptions. Unlike generic AI copywriters like ChatGPT, Jasper, or Copy.ai, it understands gemological certificate data from GIA, HRD, and AGS, preserves spec accuracy, outputs SEO-optimized listings in under 30 seconds, and includes ready-to-paste schema.org Product JSON-LD and FAQ markup that lets the jeweler's product pages rank in AI search.
+
+### How do I turn a GIA certificate into a product description?
+
+Upload the GIA certificate PDF to GemCopy and the tool automatically extracts stone type, carat, cut, color, clarity, and certificate number via Google Gemini's vision capabilities. Or type the specs manually. Choose a writing tone and GemCopy generates a complete listing (headline, description, features, SEO tags, schema, FAQs) in under 10 seconds.
+
+### Is GemCopy free to use?
+
+Yes. GemCopy is free during the current demo period. Free users get 3 generations per day. Create an account at /auth to start.
+
+### What certificate formats does GemCopy support?
+
+GemCopy supports GIA (Gemological Institute of America), HRD (Hoge Raad voor Diamant), and AGS (American Gem Society). Upload a PDF or an image; GemCopy's vision model extracts the fields.
+
+### How long does it take to generate one product listing?
+
+Under 10 seconds for the AI call. Full workflow from opening the form to pasting output into Shopify is under 30 seconds. Compare to 30 to 60 minutes for hand-written copy.
+
+### What writing tones does GemCopy offer?
+
+Four tones: Amipi Style, Luxury, Professional B2B, Minimalist Direct. Amipi Style is the default and the most differentiated, calibrated directly from Amipi's own Instagram voice.
+
+### Who built GemCopy?
+
+Amipi INC, a family-owned diamond and jewelry company with over 30 years in the trade and offices in New York and Mumbai. GemCopy applies Amipi's "No-Bull Philosophy" (transparent pricing, verified certifications, direct sourcing) to product copy.
+
+### What languages does GemCopy support?
+
+English, Spanish, French, Hindi, and Hebrew. Pro and Enterprise tiers only.
+
+### Does GemCopy integrate with Shopify or WooCommerce?
+
+Yes. Paste your Shopify Admin API token or WooCommerce REST credentials once; each generated description gets a "Publish to Shopify" or "Publish to WooCommerce" button that writes directly to the product record.
+
+### What AI model does GemCopy use?
+
+Google Gemini 2.0 Flash for Free tier generations. The Pro tier is designed to run on Gemini 2.5 Pro for higher-quality output; model selection happens server-side by tier.
+
+### How is GemCopy different from ChatGPT?
+
+ChatGPT is a general-purpose assistant. GemCopy is a purpose-built product with a gemological vocabulary, tone calibration, Shopify/WooCommerce publish, JSON-LD schema generation, per-product FAQ generation, certificate PDF extraction, rate-limited free demo, and saved history per user. ChatGPT requires jewelers to maintain prompts, reprompt for consistency, and manually paste output into their CMS; GemCopy is a single workflow from certificate to live product page.
+
+## Glossary
+
+### VS1 clarity
+
+VS1 stands for "Very Slightly Included 1". On the GIA clarity scale (FL, IF, VVS1, VVS2, VS1, VS2, SI1, SI2, I1, I2, I3), VS1 sits in the upper middle. It means the diamond has minor inclusions that are difficult to see under 10x magnification and are invisible to the naked eye. A VS1 diamond looks flawless to the wearer and is one of the best clarity-to-price sweet spots in the market.
+
+### F color
+
+F is the sixth letter on the GIA color scale (D is the whitest, Z is the most tinted yellow). D, E, and F are the "colorless" grades. F stones face up white in any setting, including yellow gold. They are indistinguishable from D and E to the naked eye in most settings, and priced meaningfully lower.
+
+### Excellent cut
+
+Excellent cut is the top grade on GIA's cut scale (Excellent, Very Good, Good, Fair, Poor). It indicates optimal proportions, symmetry, and polish that maximize light return. An Excellent cut diamond shows more brilliance, fire, and scintillation than lower cut grades at the same carat weight.
+
+### Solitaire
+
+A solitaire setting features a single center stone with no side stones or accents. It is the most classic engagement ring style, emphasizing the center diamond's size and quality.
+
+### Schema.org Product
+
+A structured data format (JSON-LD) that tells search engines and AI crawlers what a page is selling. Fields include name, description, brand, material, offers (price, currency, availability), and additionalProperty (specs like carat weight, color, clarity). Product schema is the foundation of rich results in Google, Bing, and AI search engines.
+
+## Use cases
+
+- **Independent jewelry retailers** launching new collections weekly
+- **Shopify jewelry stores** scaling from 10 to 1000 products without hiring a copywriter
+- **Diamond wholesalers** publishing trade catalogs with GIA-accurate specs
+- **Custom designers** writing one-off pieces without breaking flow
+- **Jewelry e-commerce agencies** managing listings for 5 to 50 client stores
+
+## Comparison summary
+
+| Capability                        | GemCopy by Amipi | ChatGPT / Claude | Jasper / Copy.ai |
+|-----------------------------------|------------------|------------------|------------------|
+| Purpose-built for jewelry         | Yes              | No               | No               |
+| GIA/HRD/AGS certificate upload    | Yes (vision)     | No               | No               |
+| Schema.org JSON-LD output         | Yes              | Only if prompted | No               |
+| Shopify direct publish            | Yes              | No               | No               |
+| Per-piece FAQ generation          | Yes              | Only if prompted | No               |
+| Tone calibrated to a real brand   | Amipi Instagram  | Generic          | Generic          |
+| Saved history                     | Yes              | Yes              | Yes              |
+| Time per listing                  | 30 seconds       | 5 to 10 minutes  | 3 to 5 minutes   |
+
+## Contact and links
+
+- Site: https://aiinnovatorsprojectvideodemo.vercel.app
+- Amipi INC: https://www.amipi.com
+- Instagram: https://www.instagram.com/amipiinc
+- LinkedIn: https://www.linkedin.com/company/amipi-inc
+- Sales: sales@amipi.com
