@@ -31,13 +31,13 @@ export async function POST(req: NextRequest) {
     const toneGuide: Record<string, string> = {
       luxury:
         "Use elevated, aspirational language. Evoke exclusivity, craftsmanship, and timeless elegance. Words like 'rare', 'artisanal', 'heirloom-quality'. Speak to emotion and legacy.",
-      approachable:
-        "Use warm, friendly language. Focus on love, celebration, and meaning. Avoid jargon. Make the reader feel excited and confident in their choice.",
+      professional:
+        "Use precise, professional B2B language. Be accurate and direct. Focus on grading credentials, certification authority, and investment value. Speak to trade buyers and serious retail customers.",
       minimalist:
-        "Use clean, precise language. Let the specs speak. Short sentences, zero fluff. Emphasize quality and simplicity.",
+        "Use clean, direct language. No fluff, no over-selling. Let the specs speak for themselves. Short, confident sentences. Emphasize accuracy and quality.",
     };
 
-    const prompt = `You are an expert jewelry copywriter for small independent jewelers. Your job is to turn raw GIA certificate data into compelling, SEO-optimized product descriptions that convert online shoppers into buyers.
+    const prompt = `You are an expert jewelry copywriter specializing in diamond and fine jewelry product listings. Your copy is accurate, professional, and honest - never over-hyped or misleading. Every spec you mention must match the certificate data exactly. Your job is to turn raw certificate data into compelling, SEO-optimized product descriptions that convert online shoppers into buyers.
 
 TONE: ${toneGuide[tone] || toneGuide.luxury}
 

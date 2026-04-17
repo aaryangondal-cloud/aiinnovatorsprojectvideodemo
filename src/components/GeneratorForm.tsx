@@ -38,8 +38,8 @@ export default function GeneratorForm({
       {/* Card header */}
       <div className="bg-navy-600 px-6 py-4 flex items-center justify-between">
         <div>
-          <h2 className="text-white font-black text-base">GIA Certificate Data</h2>
-          <p className="text-blue-200 text-xs mt-0.5">Step 1 - Fill in your specs</p>
+          <h2 className="text-white font-black text-base">Certificate Data</h2>
+          <p className="text-blue-200 text-xs mt-0.5">Step 1 - GIA, HRD, or AGS</p>
         </div>
         <button
           onClick={onLoadSample}
@@ -65,7 +65,8 @@ export default function GeneratorForm({
               <label className={labelClass}>Stone Type *</label>
               <select className={inputClass} value={form.stoneType} onChange={set("stoneType")}>
                 <option value="">Select stone</option>
-                <option>Diamond</option>
+                <option>Natural Diamond</option>
+                <option>Lab-Grown Diamond</option>
                 <option>Ruby</option>
                 <option>Emerald</option>
                 <option>Sapphire</option>
@@ -73,7 +74,6 @@ export default function GeneratorForm({
                 <option>Alexandrite</option>
                 <option>Tanzanite</option>
                 <option>Aquamarine</option>
-                <option>Opal</option>
                 <option>Morganite</option>
               </select>
             </div>
@@ -119,7 +119,7 @@ export default function GeneratorForm({
               </select>
             </div>
             <div>
-              <label className={labelClass}>GIA Certificate #</label>
+              <label className={labelClass}>Certificate #</label>
               <input
                 type="text"
                 placeholder="e.g. 2141438167"
@@ -160,7 +160,7 @@ export default function GeneratorForm({
                 <option value="24">24k</option>
               </select>
             </div>
-            <div className="col-span-2">
+            <div>
               <label className={labelClass}>Setting Style</label>
               <select className={inputClass} value={form.settingStyle} onChange={set("settingStyle")}>
                 <option value="">Select setting</option>
@@ -173,6 +173,22 @@ export default function GeneratorForm({
                 <option>Tension</option>
                 <option>Cluster</option>
                 <option>Vintage</option>
+              </select>
+            </div>
+            <div>
+              <label className={labelClass}>Jewelry Type</label>
+              <select className={inputClass} value={form.additionalNotes} onChange={set("additionalNotes")}>
+                <option value="">Select type</option>
+                <option value="Engagement Ring">Engagement Ring</option>
+                <option value="Anniversary Band">Anniversary Band</option>
+                <option value="Stud Earrings">Stud Earrings</option>
+                <option value="Hoop Earrings">Hoop Earrings</option>
+                <option value="Tennis Bracelet">Tennis Bracelet</option>
+                <option value="Bangle">Bangle</option>
+                <option value="Pendant Necklace">Pendant Necklace</option>
+                <option value="Solitaire Necklace">Solitaire Necklace</option>
+                <option value="Cocktail Ring">Cocktail Ring</option>
+                <option value="Loose Diamond">Loose Diamond</option>
               </select>
             </div>
           </div>
@@ -202,8 +218,8 @@ export default function GeneratorForm({
               <label className={labelClass}>Copy Tone</label>
               <select className={inputClass} value={form.tone} onChange={set("tone")}>
                 <option value="luxury">Luxury</option>
-                <option value="approachable">Approachable</option>
-                <option value="minimalist">Minimalist</option>
+                <option value="professional">Professional (B2B)</option>
+                <option value="minimalist">Direct and Clean</option>
               </select>
             </div>
           </div>
@@ -211,10 +227,10 @@ export default function GeneratorForm({
 
         {/* Additional Notes */}
         <div>
-          <label className={labelClass}>Additional Notes</label>
+          <label className={labelClass}>Additional Details</label>
           <textarea
             rows={2}
-            placeholder="e.g. Engagement ring, conflict-free, handcrafted in NYC..."
+            placeholder="e.g. Ethically sourced, conflict-free, handcrafted, bridal collection..."
             className={`${inputClass} resize-none`}
             value={form.additionalNotes}
             onChange={set("additionalNotes")}
@@ -242,7 +258,7 @@ export default function GeneratorForm({
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                 </svg>
-                Claude is writing...
+                AI is writing...
               </>
             ) : (
               <>

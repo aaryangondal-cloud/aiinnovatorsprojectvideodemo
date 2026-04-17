@@ -1,9 +1,5 @@
 "use client";
 
-import { useState } from "react";
-import GeneratorForm from "@/components/GeneratorForm";
-import OutputPanel from "@/components/OutputPanel";
-
 export interface FormData {
   stoneType: string;
   caratWeight: string;
@@ -19,139 +15,59 @@ export interface FormData {
   additionalNotes: string;
 }
 
-const defaultForm: FormData = {
-  stoneType: "",
-  caratWeight: "",
-  cut: "",
-  color: "",
-  clarity: "",
-  metalType: "",
-  metalKarat: "",
-  settingStyle: "",
-  certificateNumber: "",
-  price: "",
-  tone: "luxury",
-  additionalNotes: "",
-};
-
-const sampleForm: FormData = {
-  stoneType: "Diamond",
-  caratWeight: "1.50",
-  cut: "Excellent",
-  color: "F",
-  clarity: "VS1",
-  metalType: "Platinum",
-  metalKarat: "18",
-  settingStyle: "Solitaire",
-  certificateNumber: "2141438167",
-  price: "12500",
-  tone: "luxury",
-  additionalNotes: "Engagement ring, ethically sourced, handcrafted",
-};
-
 const stats = [
-  { value: "2 hrs", label: "saved per listing" },
-  { value: "500+", label: "jewelers using GemCopy" },
-  { value: "GIA", label: "certified data input" },
+  { value: "30 sec", label: "per product listing" },
+  { value: "GIA/HRD", label: "certificate support" },
+  { value: "100%", label: "accurate to your specs" },
   { value: "SEO", label: "optimized every time" },
 ];
 
 const steps = [
   {
     number: "01",
-    title: "Enter your GIA data",
+    title: "Enter your certificate data",
     description:
-      "Paste in the specs directly from your GIA certificate - stone type, cut, color, clarity, metal, and setting.",
+      "Input specs directly from your GIA, HRD, or AGS certificate - stone type, cut, color, clarity, metal, setting, and jewelry type.",
   },
   {
     number: "02",
     title: "Choose your tone",
     description:
-      "Select luxury, approachable, or minimalist. Claude adapts the copy style to match your brand voice.",
+      "Select professional, luxury, or direct. The AI adapts the copy to match your brand voice and target audience.",
   },
   {
     number: "03",
     title: "Copy and publish",
     description:
-      "Get a headline, full product description, key features, and SEO tags - all ready to paste into your store.",
+      "Get a headline, full product description, key features, and SEO tags - accurate, no-bull copy ready to publish instantly.",
   },
 ];
 
 const testimonials = [
   {
     quote:
-      "I used to spend an hour on each product description. Now I do it in 30 seconds. The copy is better than anything I was writing myself.",
+      "We list 40+ new pieces a month. GemCopy cut our description time from an hour per piece to under a minute. The copy is accurate, professional, and actually sells.",
     name: "Sarah Chen",
-    role: "Owner, Lumiere Jewels - San Francisco",
+    role: "Wholesale Director, Lumiere Diamonds - New York",
     initials: "SC",
   },
   {
     quote:
-      "My Google traffic went up 40% in three months. The SEO tags alone are worth the price. This is a no-brainer for any independent jeweler.",
+      "Our online store traffic increased 40% in three months. The SEO tags are exactly what our buyers search for. Every jeweler selling online needs this.",
     name: "Marcus Rivera",
     role: "Founder, Rivera Fine Jewelry - Miami",
     initials: "MR",
   },
   {
     quote:
-      "Finally copy that sounds like us, not like a lab report. Customers actually comment on how beautiful our descriptions are now.",
+      "What I love is the accuracy. The specs are always right, the grading language is correct, and the copy is honest - not over-hyped. Our B2B clients trust it.",
     name: "Priya Nair",
-    role: "Creative Director, Ananda Gems - Chicago",
+    role: "Operations Manager, Ananda Gems - Chicago",
     initials: "PN",
   },
 ];
 
 export default function Home() {
-  const [form, setForm] = useState<FormData>(defaultForm);
-  const [output, setOutput] = useState<string>("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string>("");
-  const [copied, setCopied] = useState(false);
-
-  const handleGenerate = async () => {
-    if (!form.stoneType || !form.caratWeight || !form.metalType) {
-      setError("Please fill in stone type, carat weight, and metal type.");
-      return;
-    }
-    setError("");
-    setLoading(true);
-    setOutput("");
-
-    try {
-      const res = await fetch("/api/generate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Generation failed.");
-      setOutput(data.description);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Something went wrong.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleCopy = () => {
-    if (!output) return;
-    navigator.clipboard.writeText(output);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  const handleReset = () => {
-    setForm(defaultForm);
-    setOutput("");
-    setError("");
-  };
-
-  const handleLoadSample = () => {
-    setForm(sampleForm);
-    setOutput("");
-    setError("");
-  };
-
   return (
     <main className="min-h-screen bg-white">
       {/* ── Header ── */}
@@ -168,11 +84,12 @@ export default function Home() {
               <span className="text-xs text-gray-400 ml-2 font-normal">by Amipi</span>
             </div>
           </div>
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-500">
+          <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-gray-500">
             <a href="#how-it-works" className="hover:text-navy-600 transition-colors">How it works</a>
             <a href="#testimonials" className="hover:text-navy-600 transition-colors">Reviews</a>
-            <a href="#generator" className="btn-gold px-5 py-2 rounded-lg font-bold text-sm">
-              Try Free
+            <a href="/auth" className="hover:text-navy-600 transition-colors font-bold">Log In</a>
+            <a href="/auth" className="btn-gold px-5 py-2 rounded-lg font-bold text-sm">
+              Sign Up Free
             </a>
           </nav>
         </div>
@@ -191,16 +108,16 @@ export default function Home() {
               <span className="text-gold-gradient">with AI-Written Descriptions</span>
             </h1>
             <p className="text-lg text-blue-100 max-w-2xl mx-auto mb-8 leading-relaxed">
-              Paste your GIA certificate specs. Get compelling, SEO-optimized copy that actually converts - in under 10 seconds.
+              Enter your GIA, HRD, or AGS certificate data. Get accurate, professional, SEO-optimized product copy - no fluff, no bull, in under 10 seconds.
             </p>
             <a
-              href="#generator"
+              href="/auth"
               className="inline-flex items-center gap-2 btn-gold px-8 py-4 rounded-xl font-black text-base"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
-              Generate Free Description
+              Get Started Free
             </a>
           </div>
 
@@ -280,36 +197,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Generator ── */}
-      <section id="generator" className="bg-gray-50 py-20">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl font-black text-navy-700 mb-3">Generate Your Description</h2>
-            <p className="text-gray-500 text-base max-w-xl mx-auto">
-              Enter your GIA specs below or load our sample data to see it in action.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <GeneratorForm
-              form={form}
-              setForm={setForm}
-              onGenerate={handleGenerate}
-              onReset={handleReset}
-              onLoadSample={handleLoadSample}
-              loading={loading}
-              error={error}
-            />
-            <OutputPanel
-              output={output}
-              loading={loading}
-              onCopy={handleCopy}
-              copied={copied}
-            />
-          </div>
-        </div>
-      </section>
-
       {/* ── How It Works ── */}
       <section id="how-it-works" className="bg-white py-20">
         <div className="max-w-7xl mx-auto px-6">
@@ -367,18 +254,18 @@ export default function Home() {
       {/* ── Final CTA ── */}
       <section className="bg-navy-gradient py-20 text-white text-center">
         <div className="max-w-2xl mx-auto px-6">
-          <h2 className="text-3xl font-black mb-4">Stop writing specs. Start writing stories.</h2>
+          <h2 className="text-3xl font-black mb-4">Accurate specs. Compelling copy. No bull.</h2>
           <p className="text-blue-200 text-base mb-8 leading-relaxed">
-            Every product description is a sales opportunity. Let Claude AI turn your GIA data into copy that connects with buyers.
+            Every product listing is a sales opportunity. Let AI turn your GIA, HRD, or AGS certificate data into honest, professional copy that actually converts.
           </p>
           <a
-            href="#generator"
+            href="/auth"
             className="inline-flex items-center gap-2 btn-gold px-8 py-4 rounded-xl font-black text-base"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
-            Generate Free Description
+            Create Free Account
           </a>
         </div>
       </section>
@@ -396,7 +283,7 @@ export default function Home() {
             <span className="text-gray-500 text-xs">by Amipi</span>
           </div>
           <p className="text-gray-500 text-xs">
-            Powered by Claude AI. Built for independent jewelers worldwide.
+            Powered by Google Gemini AI. Built for independent jewelers worldwide.
           </p>
           <p className="text-gray-600 text-xs">
             © 2025 Amipi INC. All rights reserved.
