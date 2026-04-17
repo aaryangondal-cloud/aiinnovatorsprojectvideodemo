@@ -2,6 +2,7 @@
 
 import HeroSection from "@/components/HeroSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
+import FaqSection from "@/components/FaqSection";
 import { motion } from "framer-motion";
 import Sparkles from "@/components/ui/sparkles";
 
@@ -60,6 +61,7 @@ export default function Home() {
           <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-gray-500">
             <a href="#how-it-works" className="hover:text-navy-600 transition-colors">How it works</a>
             <a href="#testimonials" className="hover:text-navy-600 transition-colors">Reviews</a>
+            <a href="#faq" className="hover:text-navy-600 transition-colors">FAQ</a>
             <a href="/auth" className="hover:text-navy-600 transition-colors font-bold">Log In</a>
             <a href="/auth" className="btn-gold px-5 py-2 rounded-lg font-bold text-sm">
               Sign Up Free
@@ -121,6 +123,9 @@ export default function Home() {
 
       {/* Testimonials - infinite scroll columns */}
       <TestimonialsSection />
+
+      {/* FAQ - AEO-optimized, mirrors FAQPage JSON-LD */}
+      <FaqSection />
 
       {/* Final CTA with sparkles */}
       <section className="bg-navy-gradient py-20 text-white text-center relative overflow-hidden">

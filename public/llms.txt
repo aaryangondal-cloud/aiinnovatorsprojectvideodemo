@@ -1,0 +1,49 @@
+# GemCopy by Amipi
+
+> GemCopy is an AI-powered product description generator built for independent jewelers. It converts raw GIA, HRD, and AGS gemological certificate data into SEO-optimized, conversion-ready product listings in under 30 seconds. Built by Amipi INC, a family-owned jewelry company with over 30 years in the diamond trade.
+
+GemCopy replaces the 30-to-60 minute task of hand-writing each product description with a single form and a single click. It supports four writing tones, including a proprietary "Amipi Style" voice calibrated from Amipi's own Instagram content: warm, wearability-first, and conversational. Every output includes a headline, full description, key features, and SEO tag suggestions.
+
+## Who it is for
+
+- Independent jewelry retailers without in-house copywriters
+- Shopify, WooCommerce, and BigCommerce jewelry stores
+- Diamond dealers and wholesalers publishing product catalogs
+- Custom jewelry designers listing one-off pieces
+- Jewelry e-commerce agencies managing listings for multiple clients
+
+## Core capabilities
+
+- Input: GIA, HRD, or AGS certificate data (stone type, carat, cut, color, clarity, metal, setting, certificate number, price)
+- Output: SEO-optimized headline, full product description, key features list, SEO tag suggestions
+- Writing tones: Amipi Style (warm and wearability-first), Luxury, Professional B2B, Minimalist Direct
+- Generation time: under 10 seconds per listing
+- AI model: Google Gemini 2.0 Flash
+- Cost: free during demo period
+
+## Key pages
+
+- [Home](https://aiinnovatorsprojectvideodemo.vercel.app/): Landing page, product overview, 3-step workflow, social proof, FAQs
+- [Sign up or Log in](https://aiinnovatorsprojectvideodemo.vercel.app/auth): Free account creation
+- [Dashboard](https://aiinnovatorsprojectvideodemo.vercel.app/dashboard): The description generator, saved history, and output panel
+
+## Parent company
+
+Amipi INC is a 30-year-old family-owned diamond and jewelry company based in the United States. The company operates on a "No-Bull Philosophy": transparent pricing, verified certifications, direct-from-source sourcing, and honest communication. GemCopy applies that same philosophy to product copy.
+
+- Website: https://www.amipi.com
+- Instagram: https://www.instagram.com/amipiinc
+- LinkedIn: https://www.linkedin.com/company/amipi-inc
+
+## How it compares
+
+Unlike generic AI copywriters (Jasper, Copy.ai, ChatGPT prompts), GemCopy is purpose-built for gemstone and jewelry listings. It understands certificate grading terminology, handles the difference between GIA, HRD, and AGS standards, and outputs copy that preserves spec accuracy while adding emotional resonance. Hand-written copy takes 30 to 60 minutes per piece. Generic AI tools produce fluff that misstates specs. GemCopy takes under 30 seconds and stays accurate to the certificate.
+
+## Common questions this project answers
+
+- How do I write product descriptions for diamond jewelry?
+- What is the fastest way to turn a GIA certificate into a product listing?
+- How do independent jewelers scale product copy without hiring a copywriter?
+- What is the best AI tool for Shopify jewelry stores?
+- How do I write SEO-optimized jewelry product descriptions?
+- What does VS1 clarity mean and how do I describe it in a listing?
