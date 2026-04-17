@@ -135,15 +135,8 @@ export default function DashboardPage() {
       <header className="bg-navy-800 border-b border-navy-700 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 py-3.5 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-gold-500 flex items-center justify-center">
-              <svg className="w-4 h-4 text-navy-700" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-              </svg>
-            </div>
-            <div>
-              <span className="text-white font-black text-base">GemCopy by Amipi</span>
-              <span className="text-gray-400 text-xs ml-2">by Amipi</span>
-            </div>
+            <img src="https://www.amipi.com/images/small-logo.png" alt="Amipi" className="h-8 w-auto" />
+            <span className="text-white font-black text-base">GemCopy by Amipi</span>
           </div>
 
           <div className="flex items-center gap-4">

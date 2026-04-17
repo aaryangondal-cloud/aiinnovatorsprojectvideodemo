@@ -5,10 +5,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&display=swap');
 
 :root {
-  --navy: #1A2844;
-  --gold: #F7D61A;
+  --navy: #2c3b5b;
+  --gold: #FED700;
   --background: #fafafa;
-  --foreground: #1a2844;
+  --foreground: #2c3b5b;
 }
 
 * {
@@ -77,27 +77,27 @@ body {
 
 /* Gold gradient text */
 .text-gold-gradient {
-  background: linear-gradient(135deg, #F7D61A, #e0bf00);
+  background: linear-gradient(135deg, #FED700, #d4b300);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Navy gradient bg */
+/* Navy gradient bg - Amipi exact */
 .bg-navy-gradient {
-  background: linear-gradient(135deg, #0e1628 0%, #1A2844 60%, #243980 100%);
+  background: linear-gradient(135deg, #1a2439 0%, #2c3b5b 60%, #3a4f7a 100%);
 }
 
-/* Gold button hover */
+/* Gold button - Amipi exact */
 .btn-gold {
-  background: #F7D61A;
-  color: #1A2844;
+  background: #FED700;
+  color: #2c3b5b;
   transition: all 0.2s ease;
 }
 .btn-gold:hover {
-  background: #e0bf00;
+  background: #d4b300;
   transform: translateY(-1px);
-  box-shadow: 0 4px 16px rgba(247, 214, 26, 0.45);
+  box-shadow: 0 4px 16px rgba(254, 215, 0, 0.45);
 }
 
 /* Focus ring */

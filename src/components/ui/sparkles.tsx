@@ -21,7 +21,7 @@ interface SparklesProps {
 
 export default function Sparkles({
   className = "",
-  particleColor = "#F7D61A",
+  particleColor = "#FED700",
   particleDensity = 60,
   speed = 0.4,
 }: SparklesProps) {
