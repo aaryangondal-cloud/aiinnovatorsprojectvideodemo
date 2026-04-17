@@ -29,6 +29,8 @@ export async function POST(req: NextRequest) {
     }
 
     const toneGuide: Record<string, string> = {
+      amipi:
+        "Write exactly like Amipi's Instagram: warm, wearability-first, conversational. Lead with how the piece feels to wear - 'clean', 'effortless', 'easy to wear', 'hits different'. One or two punchy sentences then the specs. Friendly and confident, never stuffy. No over-hyped luxury language. Think: 'Your Favorite Diamond Guys' energy - approachable, honest, direct.",
       luxury:
         "Use elevated, aspirational language. Evoke exclusivity, craftsmanship, and timeless elegance. Words like 'rare', 'artisanal', 'heirloom-quality'. Speak to emotion and legacy.",
       professional:

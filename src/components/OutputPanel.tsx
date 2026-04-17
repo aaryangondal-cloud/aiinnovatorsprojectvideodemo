@@ -1,4 +1,5 @@
 "use client";
+import { useState, useEffect, useRef } from "react";
 
 interface Props {
   output: string;
@@ -55,6 +56,22 @@ function CopyButton({ text, label = "Copy" }: { text: string; label?: string }) 
 }
 
 export default function OutputPanel({ output, loading, onCopy, copied }: Props) {
+  const [visibleSections, setVisibleSections] = useState<number>(0);
+  const prevOutputRef = useRef<string>("");
+
+  useEffect(() => {
+    if (output && output !== prevOutputRef.current) {
+      prevOutputRef.current = output;
+      setVisibleSections(0);
+      const parsed = parseOutput(output);
+      if (!parsed) return;
+      parsed.forEach((_, i) => {
+        setTimeout(() => setVisibleSections(i + 1), i * 280);
+      });
+    }
+    if (!output) setVisibleSections(0);
+  }, [output]);
+
   const sections = output ? parseOutput(output) : null;
 
   return (
@@ -194,10 +211,18 @@ export default function OutputPanel({ output, loading, onCopy, copied }: Props) 
 
         {/* Real output */}
         {output && !loading && (
-          <div className="flex-1 space-y-6 overflow-y-auto animate-fade-up">
+          <div className="flex-1 space-y-6 overflow-y-auto">
             {sections ? (
-              sections.map(({ label, content }) => (
-                <div key={label} className="group">
+              sections.map(({ label, content }, idx) => (
+                <div
+                  key={label}
+                  className="group transition-all duration-500"
+                  style={{
+                    opacity: idx < visibleSections ? 1 : 0,
+                    transform: idx < visibleSections ? "translateY(0)" : "translateY(12px)",
+                    transition: "opacity 0.4s ease, transform 0.4s ease",
+                  }}
+                >
                   <div className="flex items-center justify-between mb-2">
                     <p className="text-xs font-black uppercase tracking-widest text-gold-600">{label}</p>
                     <CopyButton text={content} label={label} />

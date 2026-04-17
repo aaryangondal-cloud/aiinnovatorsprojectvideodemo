@@ -217,6 +217,7 @@ export default function GeneratorForm({
             <div>
               <label className={labelClass}>Copy Tone</label>
               <select className={inputClass} value={form.tone} onChange={set("tone")}>
+                <option value="amipi">Amipi Style (recommended)</option>
                 <option value="luxury">Luxury</option>
                 <option value="professional">Professional (B2B)</option>
                 <option value="minimalist">Direct and Clean</option>

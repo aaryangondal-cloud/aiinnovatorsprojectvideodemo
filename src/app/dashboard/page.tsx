@@ -19,7 +19,7 @@ const defaultForm: FormData = {
   settingStyle: "",
   certificateNumber: "",
   price: "",
-  tone: "luxury",
+  tone: "amipi",
   additionalNotes: "",
 };
 
