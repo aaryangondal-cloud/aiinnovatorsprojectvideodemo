@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Lato } from "next/font/google";
 import "./globals.css";
 import PageTransition from "@/components/PageTransition";
+import AmipiRepWidget from "@/components/AmipiRepWidget";
 
 const lato = Lato({
   subsets: ["latin"],
@@ -15,9 +16,9 @@ const SITE_URL = "https://aiinnovatorsprojectvideodemo.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "GemCopy by Amipi - AI Product Descriptions for Jewelers",
+  title: "Amipi Labs - GemCopy - Free AI product descriptions for our partners",
   description:
-    "GemCopy converts GIA, HRD, and AGS certificate data into SEO-optimized, conversion-ready jewelry product descriptions in under 30 seconds. Built by Amipi INC for independent jewelers.",
+    "GemCopy is Amipi Labs' free gift to the independent jewelers we partner with. Upload a GIA, HRD, or AGS certificate and get SEO-optimized product copy in under 30 seconds. Call Amipi at 1-800-530-2647.",
   keywords: [
     "AI product descriptions for jewelry",
     "GIA certificate to product description",
@@ -29,18 +30,18 @@ export const metadata: Metadata = {
     "Amipi",
   ],
   openGraph: {
-    title: "GemCopy by Amipi - AI Product Descriptions for Jewelers",
+    title: "Amipi Labs - GemCopy - Free AI product descriptions for our partners",
     description:
-      "Turn GIA, HRD, or AGS certificate data into SEO-optimized, conversion-ready product listings in under 30 seconds.",
+      "Amipi's gift to independent jewelers. Upload your GIA certificate and get Shopify-ready copy in 30 seconds. Free for Amipi partners.",
     url: SITE_URL,
-    siteName: "GemCopy by Amipi",
+    siteName: "Amipi Labs - GemCopy",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "GemCopy by Amipi - AI Product Descriptions for Jewelers",
+    title: "Amipi Labs - GemCopy",
     description:
-      "Turn GIA, HRD, or AGS certificate data into SEO-optimized product listings in under 30 seconds.",
+      "Amipi's gift to independent jewelers. Free AI product descriptions in 30 seconds.",
   },
   robots: {
     index: true,
@@ -53,7 +54,8 @@ export const metadata: Metadata = {
 const softwareApplicationSchema = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  name: "GemCopy by Amipi",
+  name: "Amipi Labs - GemCopy",
+  alternateName: "GemCopy by Amipi",
   applicationCategory: "BusinessApplication",
   operatingSystem: "Web",
   url: SITE_URL,
@@ -189,6 +191,7 @@ export default function RootLayout({
       </head>
       <body className="font-sans">
         <PageTransition>{children}</PageTransition>
+        <AmipiRepWidget />
       </body>
     </html>
   );

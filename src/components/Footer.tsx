@@ -2,21 +2,22 @@ import Image from "next/image";
 
 const linkColumns = [
   {
-    heading: "About Amipi",
+    heading: "Amipi",
     links: [
-      { label: "Amipi INC", href: "https://www.amipi.com" },
-      { label: "Our Story", href: "https://www.amipi.com/about.html" },
+      { label: "About Amipi", href: "https://www.amipi.com/about.html" },
+      { label: "Contact Us", href: "https://www.amipi.com/contact-us.html" },
+      { label: "Schedule a Virtual Meeting", href: "https://www.amipi.com/contact-us.html" },
       { label: "Instagram", href: "https://www.instagram.com/amipiinc" },
       { label: "LinkedIn", href: "https://www.linkedin.com/company/amipi-inc" },
     ],
   },
   {
-    heading: "Product",
+    heading: "GemCopy",
     links: [
+      { label: "Try it live", href: "/#try-demo" },
       { label: "How it works", href: "/#how-it-works" },
-      { label: "Reviews", href: "/#testimonials" },
       { label: "FAQ", href: "/#faq" },
-      { label: "Sign up free", href: "/auth" },
+      { label: "Your savings", href: "/#roi" },
     ],
   },
   {
@@ -25,16 +26,16 @@ const linkColumns = [
       { label: "GIA certificate guide", href: "/gia-certificate-to-product-description" },
       { label: "VS1 clarity explained", href: "/resources/vs1-clarity-explained" },
       { label: "GIA vs HRD vs AGS", href: "/resources/gia-vs-hrd-vs-ags" },
-      { label: "2026 jewelry copy guide", href: "/resources/jewelry-copy-guide" },
+      { label: "All resources", href: "/resources" },
     ],
   },
 ];
 
 const credentials = [
   { label: "30+ years in the diamond trade" },
-  { label: "Offices in New York and Mumbai" },
-  { label: "Exclusively GIA, HRD, and AGS certified" },
-  { label: "BBB A+ accredited" },
+  { label: "42 W 48th St, New York" },
+  { label: "GIA, HRD, and AGS certified" },
+  { label: "Amipi partner exclusive" },
 ];
 
 export default function Footer() {
@@ -55,16 +56,29 @@ export default function Footer() {
 
         {/* Columns */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
-          {/* Brand */}
+          {/* Brand + real contact info */}
           <div className="md:col-span-1">
             <div className="flex items-center gap-2 mb-4">
               <Image src="https://www.amipi.com/images/small-logo.png" alt="Amipi" width={36} height={36} className="h-9 w-auto" unoptimized />
-              <span className="text-white font-bold text-sm leading-tight">GemCopy<br />by Amipi</span>
+              <span className="text-white font-bold text-sm leading-tight">Amipi Labs<br />GemCopy</span>
             </div>
-            <p className="text-xs text-blue-200 leading-relaxed">
-              AI-powered jewelry product descriptions, built by a family-owned diamond company
-              with over three decades in the trade.
-            </p>
+            <address className="not-italic text-xs text-blue-200 leading-relaxed space-y-2">
+              <p>
+                42 W 48th St, 15th Floor<br />
+                New York, NY 10036
+              </p>
+              <p>
+                <a href="tel:+18005302647" className="hover:text-gold-400 transition-colors block">
+                  Toll-free: 1-800-530-2647
+                </a>
+                <a href="tel:+12123549700" className="hover:text-gold-400 transition-colors block">
+                  NYC: 1-212-354-9700
+                </a>
+                <a href="mailto:info@amipi.com" className="hover:text-gold-400 transition-colors block">
+                  info@amipi.com
+                </a>
+              </p>
+            </address>
           </div>
 
           {linkColumns.map((col) => (
@@ -91,9 +105,9 @@ export default function Footer() {
         {/* Bottom */}
         <div className="mt-12 pt-6 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-xs text-gray-500">
-            2026 Amipi INC. All rights reserved. GemCopy is a tool of Amipi INC.
+            2026 Amipi INC. All rights reserved. GemCopy is an Amipi Labs product, free for Amipi partners.
           </p>
-          <p className="text-xs text-gray-500">Powered by Google Gemini AI.</p>
+          <p className="text-xs text-gray-500">Built in New York.</p>
         </div>
       </div>
     </footer>

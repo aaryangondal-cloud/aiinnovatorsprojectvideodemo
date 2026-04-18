@@ -42,7 +42,7 @@ export default function HeroSection() {
               transition={{ duration: 0.5 }}
               className="inline-block bg-gold-500 text-navy-700 text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-6"
             >
-              For Independent Jewelers
+              Amipi Labs, free for our partners
             </motion.span>
 
             <motion.h1
@@ -58,7 +58,7 @@ export default function HeroSection() {
                 className="text-gold-gradient"
               />
               <br />
-              <span className="text-gold-gradient">into sales with AI-written copy</span>
+              <span className="text-gold-gradient">into sales. On us.</span>
             </motion.h1>
 
             <motion.p
@@ -67,8 +67,9 @@ export default function HeroSection() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-lg text-blue-100 max-w-xl mb-8 leading-relaxed"
             >
-              Enter your GIA, HRD, or AGS certificate data. Get accurate, professional,
-              SEO-optimized product copy, no fluff, no bull, in under 10 seconds.
+              GemCopy is Amipi&apos;s free gift to the independent jewelers we work with.
+              Upload your GIA, HRD, or AGS certificate and we write the product copy,
+              accurate, professional, ready to publish in under 30 seconds.
             </motion.p>
 
             <motion.div
@@ -78,7 +79,7 @@ export default function HeroSection() {
               className="flex flex-wrap items-center gap-4"
             >
               <motion.a
-                href="/auth"
+                href="#try-demo"
                 whileHover={{ scale: 1.03, y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 className="inline-flex items-center gap-2 btn-gold px-8 py-4 rounded-xl font-black text-base"
@@ -86,13 +87,16 @@ export default function HeroSection() {
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
-                Get Started Free
+                Try it right now, no signup
               </motion.a>
               <a
-                href="#try-demo"
+                href="tel:+18005302647"
                 className="inline-flex items-center gap-2 text-white border border-white/30 hover:border-gold-400 px-6 py-4 rounded-xl font-bold text-sm transition-colors"
               >
-                Try it without signing up
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                </svg>
+                Talk to Amipi: 1-800-530-2647
               </a>
             </motion.div>
 
