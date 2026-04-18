@@ -1,12 +1,10 @@
 "use client";
 import { motion } from "framer-motion";
-import Image from "next/image";
+import { useState } from "react";
 
-/**
- * Video placeholder. When the real 20-second demo video is recorded,
- * replace the placeholder poster with a real <video> or YouTube embed.
- */
 export default function DemoVideoSection() {
+  const [playing, setPlaying] = useState(false);
+
   return (
     <section className="bg-white py-20">
       <div className="max-w-5xl mx-auto px-6">
@@ -18,7 +16,7 @@ export default function DemoVideoSection() {
             Cert in, copy out. 30 seconds.
           </h2>
           <p className="text-gray-500 text-sm md:text-base mt-3 max-w-xl mx-auto">
-            A real Amipi partner, a real GIA certificate, a real listing. No edits.
+            Built with Remotion, rendered from the same Amipi brand system you see across the site.
           </p>
         </div>
 
@@ -29,33 +27,37 @@ export default function DemoVideoSection() {
           transition={{ duration: 0.6 }}
           className="relative aspect-video rounded-3xl overflow-hidden ring-1 ring-gray-200 shadow-2xl bg-navy-gradient"
         >
-          {/* Placeholder poster: pendant image with play overlay */}
-          <Image
-            src="/jewelry/pendant.jpg"
-            alt="GemCopy demo video, placeholder"
-            fill
-            className="object-cover opacity-70"
-            sizes="(max-width: 1024px) 100vw, 1024px"
-          />
-          <div className="absolute inset-0 bg-navy-900/60 flex flex-col items-center justify-center text-white text-center px-6">
-            <div className="w-20 h-20 rounded-full bg-gold-500 text-navy-700 flex items-center justify-center shadow-2xl mb-4">
-              <svg className="w-8 h-8 ml-1" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z" />
-              </svg>
-            </div>
-            <p className="text-xs font-bold uppercase tracking-widest text-gold-400 mb-2">
-              Video coming soon
-            </p>
-            <p className="text-sm text-blue-100 max-w-md">
-              A 20-second product demo is being recorded with one of our partner jewelers.
-              Drop it in <code className="bg-white/10 px-1.5 py-0.5 rounded text-gold-300">src/components/DemoVideoSection.tsx</code> when ready.
-            </p>
-          </div>
+          <video
+            src="/gemcopy-demo.mp4"
+            poster="/jewelry/pendant.jpg"
+            controls
+            playsInline
+            preload="metadata"
+            className="w-full h-full object-cover"
+            onPlay={() => setPlaying(true)}
+          >
+            Your browser does not support the video tag.
+          </video>
+
+          {!playing && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="absolute inset-0 pointer-events-none flex items-end justify-start p-6"
+            >
+              <div className="bg-black/50 backdrop-blur-sm rounded-full px-4 py-1.5 text-[10px] text-white font-bold uppercase tracking-widest">
+                20 seconds · no audio
+              </div>
+            </motion.div>
+          )}
         </motion.div>
 
         <p className="text-center text-xs text-gray-400 mt-6">
-          Want to be in the video? Call your Amipi rep at
-          <a href="tel:+18005302647" className="text-gold-600 font-bold mx-1 hover:underline">1-800-530-2647</a>.
+          Want to be featured in the next version of this video? Call your Amipi rep at
+          <a href="tel:+18005302647" className="text-gold-600 font-bold mx-1 hover:underline">
+            1-800-530-2647
+          </a>
+          .
         </p>
       </div>
     </section>
