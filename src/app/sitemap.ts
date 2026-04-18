@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const BASE = "https://aiinnovatorsprojectvideodemo.vercel.app";
+const BASE = "https://gemcopybyamipi.vercel.app";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [

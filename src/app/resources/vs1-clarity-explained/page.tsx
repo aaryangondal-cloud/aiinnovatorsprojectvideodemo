@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description:
     "What VS1 clarity means on the GIA scale, why it's the best value sweet spot for diamond buyers, and how to describe it accurately in product copy.",
   alternates: {
-    canonical: "https://aiinnovatorsprojectvideodemo.vercel.app/resources/vs1-clarity-explained",
+    canonical: "https://gemcopybyamipi.vercel.app/resources/vs1-clarity-explained",
   },
 };
 
@@ -21,7 +21,7 @@ const articleSchema = {
   author: { "@type": "Organization", name: "Amipi INC" },
   publisher: { "@type": "Organization", name: "Amipi INC", logo: { "@type": "ImageObject", url: "https://www.amipi.com/images/top-logo.png" } },
   datePublished: "2026-04-01",
-  mainEntityOfPage: "https://aiinnovatorsprojectvideodemo.vercel.app/resources/vs1-clarity-explained",
+  mainEntityOfPage: "https://gemcopybyamipi.vercel.app/resources/vs1-clarity-explained",
 };
 
 export default function Page() {

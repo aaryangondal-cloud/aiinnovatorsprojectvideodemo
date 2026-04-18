@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "GemCopy vs ChatGPT for jewelry product descriptions",
   description:
     "GemCopy is a purpose-built jewelry copywriter that reads GIA/HRD/AGS certificates and outputs Shopify-ready copy with schema. ChatGPT is a general assistant. Full comparison.",
-  alternates: { canonical: "https://aiinnovatorsprojectvideodemo.vercel.app/gemcopy-vs-chatgpt" },
+  alternates: { canonical: "https://gemcopybyamipi.vercel.app/gemcopy-vs-chatgpt" },
 };
 
 const data: ComparisonData = {

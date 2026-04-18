@@ -12,7 +12,7 @@ const lato = Lato({
   variable: "--font-lato",
 });
 
-const SITE_URL = "https://aiinnovatorsprojectvideodemo.vercel.app";
+const SITE_URL = "https://gemcopybyamipi.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

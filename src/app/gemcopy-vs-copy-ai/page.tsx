@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "GemCopy vs Copy.ai for jewelry retailers",
   description:
     "Copy.ai is a general AI copywriter. GemCopy is jewelry-specific with certificate extraction, schema output, and Shopify publish. Compare features and pricing.",
-  alternates: { canonical: "https://aiinnovatorsprojectvideodemo.vercel.app/gemcopy-vs-copy-ai" },
+  alternates: { canonical: "https://gemcopybyamipi.vercel.app/gemcopy-vs-copy-ai" },
 };
 
 const data: ComparisonData = {

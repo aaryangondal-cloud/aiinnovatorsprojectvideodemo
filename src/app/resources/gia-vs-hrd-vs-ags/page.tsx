@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description:
     "A trade guide to the three major diamond grading labs. How they differ, which markets trust which, and which certificate to emphasize in your product copy.",
   alternates: {
-    canonical: "https://aiinnovatorsprojectvideodemo.vercel.app/resources/gia-vs-hrd-vs-ags",
+    canonical: "https://gemcopybyamipi.vercel.app/resources/gia-vs-hrd-vs-ags",
   },
 };
 

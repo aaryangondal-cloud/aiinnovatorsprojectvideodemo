@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description:
     "How Shopify jewelry stores can rank on Google and AI search with schema-optimized product descriptions. Built-in JSON-LD, one-click publish, 30-second workflow.",
   alternates: {
-    canonical: "https://aiinnovatorsprojectvideodemo.vercel.app/jewelry-seo-copy-for-shopify",
+    canonical: "https://gemcopybyamipi.vercel.app/jewelry-seo-copy-for-shopify",
   },
 };
 

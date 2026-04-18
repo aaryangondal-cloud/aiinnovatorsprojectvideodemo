@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     "Step-by-step guide for independent jewelers to turn raw GIA, HRD, or AGS certificate data into a publishable Shopify product description in under 30 seconds using GemCopy.",
   alternates: {
     canonical:
-      "https://aiinnovatorsprojectvideodemo.vercel.app/gia-certificate-to-product-description",
+      "https://gemcopybyamipi.vercel.app/gia-certificate-to-product-description",
   },
 };
 

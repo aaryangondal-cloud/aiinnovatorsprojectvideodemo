@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description:
     "The complete guide to jewelry copy in 2026: spec accuracy, emotional resonance, SEO structure, schema markup, and how to write 10x faster without losing quality.",
   alternates: {
-    canonical: "https://aiinnovatorsprojectvideodemo.vercel.app/resources/jewelry-copy-guide",
+    canonical: "https://gemcopybyamipi.vercel.app/resources/jewelry-copy-guide",
   },
 };
 

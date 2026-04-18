@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description:
     "GemCopy is Amipi Labs' free gift to the independent jewelers we partner with. Unlimited descriptions, all tones, all languages, at no cost. Call 1-800-530-2647.",
   alternates: {
-    canonical: "https://aiinnovatorsprojectvideodemo.vercel.app/pricing",
+    canonical: "https://gemcopybyamipi.vercel.app/pricing",
   },
 };
 

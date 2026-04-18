@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "GemCopy vs Jasper for jewelry product descriptions",
   description:
     "Jasper is a general-purpose marketing copy tool. GemCopy is built for jewelry, reads GIA certificates, and publishes directly to Shopify. Compared feature-by-feature.",
-  alternates: { canonical: "https://aiinnovatorsprojectvideodemo.vercel.app/gemcopy-vs-jasper" },
+  alternates: { canonical: "https://gemcopybyamipi.vercel.app/gemcopy-vs-jasper" },
 };
 
 const data: ComparisonData = {

@@ -23,9 +23,9 @@ GemCopy replaces the 30-to-60 minute task of hand-writing each product descripti
 
 ## Key pages
 
-- [Home](https://aiinnovatorsprojectvideodemo.vercel.app/): Landing page, product overview, 3-step workflow, social proof, FAQs
-- [Sign up or Log in](https://aiinnovatorsprojectvideodemo.vercel.app/auth): Free account creation
-- [Dashboard](https://aiinnovatorsprojectvideodemo.vercel.app/dashboard): The description generator, saved history, and output panel
+- [Home](https://gemcopybyamipi.vercel.app/): Landing page, product overview, 3-step workflow, social proof, FAQs
+- [Sign up or Log in](https://gemcopybyamipi.vercel.app/auth): Free account creation
+- [Dashboard](https://gemcopybyamipi.vercel.app/dashboard): The description generator, saved history, and output panel
 
 ## Parent company
 

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description:
     "Original benchmark data on jewelry product description workflows: time per listing, conversion lift from spec-accurate copy, AI search citation rates, and more.",
   alternates: {
-    canonical: "https://aiinnovatorsprojectvideodemo.vercel.app/data/jewelry-copy-benchmarks",
+    canonical: "https://gemcopybyamipi.vercel.app/data/jewelry-copy-benchmarks",
   },
 };
 

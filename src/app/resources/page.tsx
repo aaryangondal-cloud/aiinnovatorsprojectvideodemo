@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: "Resources for Jewelry Retailers - GemCopy by Amipi",
   description:
     "Guides, glossaries, and tactics for independent jewelers on writing product copy, understanding GIA grading, and ranking in AI search.",
-  alternates: { canonical: "https://aiinnovatorsprojectvideodemo.vercel.app/resources" },
+  alternates: { canonical: "https://gemcopybyamipi.vercel.app/resources" },
 };
 
 export default function ResourcesIndex() {
